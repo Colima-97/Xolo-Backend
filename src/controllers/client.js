@@ -40,7 +40,7 @@ function updateClient(req, res){
     let update = req.body
 
     newClient.findOneAndUpdate({Id_client: clientId}, update, (err, clientUpdated) =>{
-        if(err) return res.status(500).send({message: `Error al actualizar el cliente: {$err}`})
+        if(err) return res.status(500).send({message: `Error al actualizar el cliente: ${err}`})
         res.status(200).send({client: clientUpdated})
     })
 }
@@ -49,8 +49,8 @@ function deleteClient(req, res){
     let clientId = req.params.Id_client
 
     newClient.remove({Id_client: clientId}, (err, clientDelete) =>{
-        if(err) return res.status(500).send({message: `Error al borrar cliente: {$err}`})
-        res.status(200).send({message: `El cliente: {$clientId} ha sido borrado`})
+        if(err) return res.status(500).send({message: `Error al borrar cliente: ${err}`})
+        res.status(200).send({message: `El cliente: ${clientId} ha sido borrado`})
     })
 }
 
