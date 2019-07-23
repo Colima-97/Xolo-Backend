@@ -22,10 +22,6 @@ function decodeToken(token){
 
             if(payload.exp <= moment().unix()){
                 createToken()
-                /*reject({
-                    status: 401,
-                    message: 'El token ha expirado'
-                })*/
             }
             resolve(payload.sub)
         }catch(err){

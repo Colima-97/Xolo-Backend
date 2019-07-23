@@ -13,7 +13,6 @@ app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 
-// Routes
 app.use(require('./src/routes/index'))
 app.use(require('./src/routes/company_third_party'))
 app.use(require('./src/routes/deliveryman'))

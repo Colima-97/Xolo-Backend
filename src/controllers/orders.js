@@ -51,18 +51,12 @@ function saveOrders(req, res){
 
 function updateStatusOrder(req, res){
     var type = new Enum({1: 'Preparación', 2: 'En camino', 3: 'Pendiente', 4: 'Cancelada', 5: 'Entregada'})
-    //var arrayStatus = ["Preparación", "En camino", "Pendiente", "Cancelada", "Entregada"]
     let ordersId = req.params.id_order
-    //let boolean = type.find(status => status === req.body.status)
 
     if(!type.getValue(req.body.status)){
         return res.status(500).send({ message: "Error al actualizar el estado de la orden, el dato enviado es invalido"})
     }
-    //console.log(boolean)
 
-    //if(boolean == undefined){
-        //return res.status(500).send({ message: "Error al actualizar el estado de la orden, el dato enviado es invalido"})
-    //}
     Orders.findOneAndUpdate({id_order: ordersId}, { status: type.get(req.body.status) }, (err, ordersUpdated) => {
         if(err) return res.status(500).send({message: `Error al actualizar el estado de la orden: ${err}`})
         res.status(200).send({ message: "Actualizado correctamente"})
