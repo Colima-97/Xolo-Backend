@@ -14,10 +14,10 @@ app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 
 // Routes
-app.use(require('./routes/index'))
-app.use(require('./routes/company_third_party'))
-app.use(require('./routes/deliveryman'))
-app.use(require('./routes/no_fixed_deliveryman_orders'))
-app.use(require('./routes/orders'))
+app.use(require('./src/routes/index'))
+app.use(require('./src/routes/company_third_party'))
+app.use(require('./src/routes/deliveryman'))
+app.use(require('./src/routes/no_fixed_deliveryman_orders'))
+app.use(require('./src/routes/orders'))
 
 module.exports = app

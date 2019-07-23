@@ -1,4 +1,9 @@
+'use strict'
+
 const Deliveryman = require('../models/deliveryman')
+const Counters = require('../models/counters')
+const CodeSMS = require('../models/codeSMS')
+const service = require('../services')
 
 function getDeliveryman(req, res){
     Deliveryman.find({}, (err, deliveryman) => {
@@ -53,10 +58,49 @@ function deleteDeliveryman(req, res){
     })
 }
 
+function signUpDeliveryman(req, res){
+    let user = new Deliveryman()
+    Deliveryman.findOne({phone_number: req.body.phone_number}, (err, phonenumber) => {
+        if(err) return res.status(500).send({ message: `Ha ocurrido un error ${err}`})
+        if(phonenumber) return res.status(200).send({ message: 'El telefono ya está asociado a una cuenta'})
+        Counters.findOneAndUpdate({id_deliveryman: 'deliverymanId'}, {$inc: {seq: 1}}, (err, counter) => {
+            user.id_deliveryman = counter.seq
+            user.name = req.body.name,
+            user.last_name = req.body.last_name,
+            user.deliveryman_type = req.body.deliveryman_type,
+            user.address = req.body.address,
+            user.phone_number = req.body.phone_number,
+            user.password = req.body.password
+    
+            if(err) return res.status(500).send({ message: `No se pudo actualizar el id`})
+            user.save((err) => {
+                if(err){
+                    Counters.findOneAndUpdate({id_deliveryman: 'deliverymanId'}, {$inc: {seq: -1}}, (err, counter) => {
+                        if(err) return res.status(500).send({ message: `Error al decrementar el id`})
+                    })
+                    return res.status(500).send({ message: `Error al crear el usuario: ${err}` })
+                }
+                res.status(201).send({ token: service.createToken() })
+            })
+        })
+    })
+}
+
+function verifyCodeSMS(req, res){
+    let code = req.params.codeSMS
+    CodeSMS.findOne({codeSMS: code}, (err, content) => {
+        if(err) return res.status(500).send({ message: 'Error al procesar la solicitud'})
+        if(!content) return res.status(404).send({ message: 'Codigo invalido'})
+        res.status(200).send({ content: content})
+    })
+}
+
 module.exports = {
     getDeliveryman,
     getDeliverymanId,
     saveDeliveryman,
     updateDeliveryman,
-    deleteDeliveryman
+    deleteDeliveryman,
+    signUpDeliveryman, 
+    verifyCodeSMS
 }
