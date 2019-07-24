@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const nfdoCtrl = require('../controllers/no_fixed_deliveryman_orders')
+const auth = require('../middlewares/auth')
 
-router.get('/api/nfdo', nfdoCtrl.getNfdo)
-router.get('/api/nfdo/:id_deliveryman', nfdoCtrl.getNfdoId)
-router.post('/api/nfdo', nfdoCtrl.saveNfdo)
-router.put('/api/nfdo/:id_deliveryman', nfdoCtrl.updateNfdo)
-router.delete('/api/nfdo/:id_deliveryman', nfdoCtrl.deleteNfdo)
+router.get('/app/api/v1/nfdo', auth, nfdoCtrl.getNfdo)
+router.get('/app/api/v1/nfdo/:idOrder', auth, nfdoCtrl.getNfdoId)
+router.get('/app/api/v1/nfdo/restaurant/:id_restaurant', auth, nfdoCtrl.getOrdersIdRestaurantNfdo)
+router.post('/app/api/v1/nfdo', auth, nfdoCtrl.saveNfdo)
+router.put('/app/api/v1/nfdo/:idOrder', auth, nfdoCtrl.updateStatusNfdo)
 
 module.exports = router;

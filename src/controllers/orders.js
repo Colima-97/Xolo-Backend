@@ -23,13 +23,20 @@ function getOrdersId(req, res){
 function saveOrders(req, res){
     let orders = new Orders()
 
+    var type = new Enum({1: 'Preparación', 2: 'En camino', 3: 'Pendiente', 4: 'Cancelada', 5: 'Entregada'})
+    
+    if(!type.getValue(req.body.status)){
+        return res.status(500).send({ message: "Error al actualizar el estado de la orden, el dato enviado es invalido"})
+    }
+
     Counters.findOneAndUpdate({id_order: 'orderId'}, {$inc: {seq: 1}}, (err, counter) => {
         if(err) return res.status(500).send({ message: `No se pudo actualizar el id`})
+        var statusOrder = type.getValue(req.body.status)
         orders.id_order = counter.seq
         orders.id_restaurant = req.body.id_restaurant
         orders.id_deliveryman = req.body.id_deliveryman
         orders.id_client = req.body.id_client
-        orders.status = req.body.status
+        orders.status = statusOrder
         orders.id_food = req.body.id_food
         orders.food_price = req.body.food_price
         orders.subtotal = req.body.subtotal
@@ -59,6 +66,7 @@ function updateStatusOrder(req, res){
 
     Orders.findOneAndUpdate({id_order: ordersId}, { status: type.get(req.body.status) }, (err, ordersUpdated) => {
         if(err) return res.status(500).send({message: `Error al actualizar el estado de la orden: ${err}`})
+        if(!ordersUpdated) return res.status(404).send({ message: 'La orden no existe' })
         res.status(200).send({ message: "Actualizado correctamente"})
     })
 }

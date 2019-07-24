@@ -2,7 +2,6 @@
 
 const Deliveryman = require('../models/deliveryman')
 const Counters = require('../models/counters')
-const CodeSMS = require('../models/codeSMS')
 const service = require('../services')
 
 function getDeliveryman(req, res){
@@ -86,21 +85,11 @@ function signUpDeliveryman(req, res){
     })
 }
 
-function verifyCodeSMS(req, res){
-    let code = req.params.codeSMS
-    CodeSMS.findOne({codeSMS: code}, (err, content) => {
-        if(err) return res.status(500).send({ message: 'Error al procesar la solicitud'})
-        if(!content) return res.status(404).send({ message: 'Codigo invalido'})
-        res.status(200).send({ content: content})
-    })
-}
-
 module.exports = {
     getDeliveryman,
     getDeliverymanId,
     saveDeliveryman,
     updateDeliveryman,
     deleteDeliveryman,
-    signUpDeliveryman, 
-    verifyCodeSMS
+    signUpDeliveryman
 }
