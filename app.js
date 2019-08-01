@@ -16,5 +16,6 @@ app.set('layout', 'layouts/layout')
 // Routes
 app.use(require('./src/routes/index'))
 app.use(require('./src/routes/client'))
+app.use(require('./src/routes/restaurant'))
 
 module.exports = app 
