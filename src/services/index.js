@@ -21,7 +21,7 @@ function decodeToken(token){
             const payload = jwt.decode(token, config.SECRET_TOKEN)
 
             if(payload.exp <= moment().unix()){
-                createToken()
+                resolve({token: createToken()})
             }
             resolve(payload.sub)
         }catch(err){
