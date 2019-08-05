@@ -2,24 +2,26 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const restaurantSchema = new Schema({
-    Id_restaurant : {type: Number, required: true},
+    Id_restaurant : {
+        type: Number,
+        required: true
+    },
     Restaurant_name : {
         type: String,
         required : true
     },
-    User_type: {
-        type: String, 
+    rest_code: {
+        type: String,
         required: true,
-        lowercase: true,
-        enum: ['client', 'deliveryman', 'restaurant', 'third party']
-    },    
+        unique: true
+    },   
     Description : String,
     Min_amount: {
         type : Number,
         required : true,
         default : 0
     },        
-    Phone_number: {
+    rest_Phone_number: {
         type : Number
     },
     Email: {
