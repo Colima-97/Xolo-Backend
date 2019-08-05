@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const clientSchema = new Schema({
-    Id_client : {
+    id_client: {
         type: Number, 
         required: true
     },
-    Username: {
+    username: {
         type: Number,
         index: true,
         unique: true,
@@ -17,35 +17,35 @@ const clientSchema = new Schema({
         select: false,
         required: true,
     },
-    Name : {
+    name: {
         type: String, 
         required: true
     },
-    Last_name: String,
-    User_type: {
+    last_name: String,
+    user_type: {
         type: String, 
         required: true,
         lowercase: true,
         enum: ['client', 'deliveryman', 'restaurant', 'third party']
     },
-    Email: {
+    email: {
         type: String,
         required: true,
         lowercase: true,
         match: /\S+@\S+\.\S+/
     },
-    Address:{
+    address:{
         type: String,
         required: true      
     },
-    NumberAddress:{
+    number_address:{
         type: Number,
         required: true
     },
-    Latitude:{
+    latitude:{
         type: Number
     },
-    Longitude:{
+    longitude:{
         type: Number
     }
 });

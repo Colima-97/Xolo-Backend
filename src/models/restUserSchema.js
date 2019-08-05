@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const restUserSchema = new Schema({
-    Id_username:{
+    id_username:{
         type: Number, 
         required: true
     },
-    Id_rest_Working: {
+    id_rest_working: {
         type : Number,
         required: true
     },
-    rest_Name_Working: {
+    rest_name_working: {
         type: String,
         required: true
     },    
@@ -18,7 +18,7 @@ const restUserSchema = new Schema({
         type: String,
         required: true        
     },    
-    Username: {
+    username: {
         type: Number, 
         required: true
     },
@@ -33,15 +33,15 @@ const restUserSchema = new Schema({
         lowercase: true,
         enum: ['client', 'deliveryman', 'restaurant', 'third party']
     },   
-    Admin: {
+    admin: {
         type: Boolean,
         required: true
     },
-    Name: {
+    name: {
         type: String, 
         required: true
     },
-    Last_name: String,
+    last_name: String,
 });
 
-module.exports = mongoose.model('restUser', restUserSchema);
+module.exports = mongoose.model('rest_user', restUserSchema);

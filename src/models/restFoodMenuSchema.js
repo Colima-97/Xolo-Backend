@@ -2,41 +2,41 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const restFoodSchema = new Schema({
-    Id_food: {
+    id_food: {
         type : Number,
         required : true
     },
-    Name: {
+    name: {
         type : String,
         required : true
     },
-    Description: String,
-    Weight: {
+    description: String,
+    weight: {
         type : Number,
         required : true
     },
-    Price: {
+    price: {
         type : Number,
         required : true
     },
-    Status: {
+    status: {
         type : Boolean,
         required : true
     },
-    Picture: String
+    picture: String
 });
 
 const restFoodMenuSchema = new Schema({
-    Id_menu : {
+    id_menu : {
         type : Number,
         required : true
     },
-    Id_restaurant : {
+    id_restaurant : {
         type : Number,
         required : true
     },
-    Category : String,
-    Menu_type : {
+    category : String,
+    menu_type : {
         type : Boolean,
         default : 0
     },

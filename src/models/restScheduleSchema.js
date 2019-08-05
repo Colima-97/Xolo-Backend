@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const daysOfWeekSchema = new Schema({
-    Day : {
+    day : {
         name : String,
         lowercase: true,
         enum: ['lunes', 'martes', 'miércoles', 'miercoles','jueves', 'viernes','sábado','sabado','domingo']
@@ -10,23 +10,23 @@ const daysOfWeekSchema = new Schema({
 });
 
 const daysAndHoursSchema = new Schema({
-    Days_of_the_week : [daysOfWeekSchema],
-    Opening_time : Date,
-    Closing_time : Date,
-    Starting_delivery_time : Date,
-    Ending_delivery_time : Date
+    days_of_the_week : [daysOfWeekSchema],
+    opening_time : Date,
+    closing_time : Date,
+    starting_delivery_time : Date,
+    ending_delivery_time : Date
 });
 
 const restScheduleSchema = new Schema({
-    Id_schedule : {
+    id_schedule : {
         type : Number,
         required : true
     },
-    Id_restaurant : {
+    id_restaurant : {
         type : Number,
         required : true
     },
-    Days : [daysAndHoursSchema],
+    days : [daysAndHoursSchema],
 
 });
 

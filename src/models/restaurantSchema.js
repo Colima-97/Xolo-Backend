@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const restaurantSchema = new Schema({
-    Id_restaurant : {
+    id_restaurant : {
         type: Number,
         required: true
     },
-    Restaurant_name : {
+    restaurant_name : {
         type: String,
         required : true
     },
@@ -15,33 +15,33 @@ const restaurantSchema = new Schema({
         required: true,
         unique: true
     },   
-    Description : String,
-    Min_amount: {
+    description : String,
+    min_amount: {
         type : Number,
         required : true,
         default : 0
     },        
-    rest_Phone_number: {
+    rest_phone_number: {
         type : Number
     },
-    Email: {
+    email: {
         type: String,
         required: true,
         lowercase: true,
         match: /\S+@\S+\.\S+/
     },
-    Address:{
+    address:{
         type: String,
         required: true      
     },
-    NumberAddress:{
+    number_address:{
         type: Number,
         required: true
     },
-    Latitude:{
+    latitude:{
         type: Number
     },
-    Longitude:{
+    longitude:{
         type: Number
     }
 });
