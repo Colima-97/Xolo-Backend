@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt-nodejs')
 const ctpmanSchema = new Schema({
     id_tpuser: { type: Number, unique: true },
     name: { type: String, required: true },
-    ctp_code: {type: String, required: true, unique: true},
+    ctp_code: {type: String, required: true},
     description: { type: String , required: true},
     user_type: { type: String, default: 'third party', lowercase: true },
     admin: { type: Boolean, required: true },
