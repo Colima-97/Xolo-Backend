@@ -58,7 +58,7 @@ function signUpDeliveryman(req, res){
     let user = new Deliveryman()
     var type = new Enum({1: 'fixed', 2: 'no-fixed'})
     if(!type.getValue(req.body.deliveryman_type)){
-        return res.status(500).send({ message: "Error al actualizar el estado del repartidor, el dato enviado es invalido"})
+        return res.status(500).send({ message: "Error al actualizar el estado del repartidor, el dato enviado es inválido"})
     }
     Deliveryman.findOne({phone_number: req.body.phone_number}, (err, phonenumber) => {
         if(err) return res.status(500).send({ message: `Ah ocurrido un error ${err}`})
