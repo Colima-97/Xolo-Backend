@@ -26,7 +26,6 @@ const restaurantSchema = new Schema({
     },
     email: {
         type: String,
-        required: true,
         lowercase: true,
         match: /\S+@\S+\.\S+/
     },
