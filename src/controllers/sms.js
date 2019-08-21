@@ -2,7 +2,7 @@
 
 var twilio = require('twilio')
 var config = require('../../config')
-var codeSMS = require('../models/codeSMS')
+var CodeSMS = require('../models/codeSMS')
 var client = new twilio(config.accountSid, config.authToken)
 
 function getCodeSMS(){
@@ -26,6 +26,16 @@ function sendSMS(req, res){
     }).then(saveCodeSMS(code)).then(res.status(200).send({ message: 'Codigo guardado'}))
 }
 
+function verifyCodeSMS(req, res){
+    let code = req.params.codeSMS
+    CodeSMS.findOne({codeSMS: code}, (err, content) => {
+        if(err) return res.status(500).send({ message: 'Error al procesar la solicitud'})
+        if(!content) return res.status(404).send({ message: 'Codigo invalido'})
+        res.status(200).send({ content: content})
+    })
+}
+
 module.exports = {
-    sendSMS
+    sendSMS,
+    verifyCodeSMS
 }

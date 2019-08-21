@@ -19,16 +19,20 @@ function decodeToken(token){
     const decoded = new Promise((resolve, reject) => {
         try{
             const payload = jwt.decode(token, config.SECRET_TOKEN)
-
-            if(payload.exp <= moment().unix()){
-                createToken()
-            }
             resolve(payload.sub)
         }catch(err){
-            reject({
-                status: 500,
-                message: 'Token invalido'
-            })
+            if(err.message == 'Token expired'){
+                var newToken = createToken()
+                reject({
+                    status: 200,
+                    message: newToken
+                })
+            }else{
+                reject({
+                    status: 500,
+                    message: 'Token invalido'
+                })
+            }
         }
     })
     return decoded

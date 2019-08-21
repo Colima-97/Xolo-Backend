@@ -1,3 +1,5 @@
+'use strict'
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs')
@@ -7,12 +9,14 @@ const DeliverymanSchema = new Schema({
     name: { type: String, required: true },
     last_name: { type: String, required: true },
     user_type: { type: String, default: "deliveryman" },
-    deliveryman_type: { type: String, required: true },
+    deliveryman_type: { type: String, required: true, lowercase: true },
     address: { type: String, required: true },
     phone_number: { type: Number, unique:true, required: true },
-    password: {type: String, select: false, required: true},
+    password: {type: String, select: false, required: true, lowercase: true},
+    code: {type: String, required: true},
     signUpDate: { type: Date, default: Date.now },
-    lastLogin: Date
+    lastLogin: Date, 
+    status: { type: String, default: 'pendiente', lowercase: true}
 });
 
 DeliverymanSchema.pre('save', (next) => {
