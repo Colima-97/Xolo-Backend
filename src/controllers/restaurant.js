@@ -118,7 +118,7 @@ async function saveNewRestUser(req, res){
     restUser.name = req.body.name
     restUser.last_name = req.body.last_name
     
-    var response = await verifyRestUserData(req.body.id_rest_working, req.body.rest_name_working, req.body.code)
+    var response = await verifySaveNewRestUserData(req.body.id_rest_working, req.body.rest_name_working, req.body.code)
 
     if(response){
         restUser.save((err, restUserSaved) => {
@@ -130,7 +130,7 @@ async function saveNewRestUser(req, res){
     }    
 }
 
-function verifyRestUserData(id_rest_working, rest_name_working, code){
+function verifySaveNewRestUserData(id_rest_working, rest_name_working, code){
     let restId = id_rest_working
     let restName = rest_name_working
     let restCode = code
@@ -142,6 +142,7 @@ function verifyRestUserData(id_rest_working, rest_name_working, code){
 
 /*------------------------Updating methods------------------------*/
 //Updates anything within Restaurant Schema
+//Only RestaurantSchema
 function upRest(req,res){
     let restId = req.params.id_restaurant
     let update = req.body
@@ -153,14 +154,31 @@ function upRest(req,res){
 }
 
 //Updating anything within Restaurant User
+//You must introduce your username and password into body, no url
+//This method is neither password nor username update 
 function upRestUser(req, res){
-    let restUserId = req.params.id_username
+    let restUser = req.body.username
+    let restUserPass = req.body.password
     let update = req.body
 
-    newRestUser.findOneAndUpdate({id_username: restUserId}, update, (err, restUserUp) => {
-        if(err) return res.status(500).send({message: `Error al actualizar el restaurante: ${err}`})
-        res.status(200).send({restUser: restUserUp})
-    })
+    var response = await verifyUpRestUserData(restUser, restUserPass)
+
+    if(response){
+        newRestUser.findOneAndUpdate({username: restUser}, update, (err, restUserUp) => {
+            if(err) return res.status(500).send({message: `Error al actualizar el usuario: ${err}`})
+            res.status(200).send({restUser: restUserUp})
+        })
+    }else{
+        res.status(400).send({message: 'Verifique los datos de usuario y contraseña'})
+    }
+}
+
+function verifyUpRestUserData(username, password){
+    let restUser = username
+    let restUserPass = password
+
+    var response = newRestUser.exists({username: restUser, password: restUserPass})
+    return response
 }
 
 /*------------------------Deleting methods------------------------*/

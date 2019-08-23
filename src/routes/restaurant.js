@@ -62,7 +62,9 @@ router.post('api/rest/newRestSchedule', restCtrl.saveNewRestSchedule)
 router.put('/api/rest/upRest/:id_restaurant', restCtrl.upRest)
 
 //Updating anything from Restaurant User
-router.put('/api/rest/upRestUser/:id_username', restCtrl.upRestUser)
+//You must introduce your username and password into body, no url
+//This method is neither password nor username update 
+router.put('/api/rest/upRestUser', restCtrl.upRestUser)
 /*
 //Making a Restaurant user an admin
 //Updating only "admin" field
