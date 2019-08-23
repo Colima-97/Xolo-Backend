@@ -156,7 +156,7 @@ function upRest(req,res){
 //Updating anything within Restaurant User
 //You must introduce your username and password into body, no url
 //This method is neither password nor username update 
-function upRestUser(req, res){
+async function upRestUser(req, res){
     let restUser = req.body.username
     let restUserPass = req.body.password
     let update = req.body
@@ -166,7 +166,7 @@ function upRestUser(req, res){
     if(response){
         newRestUser.findOneAndUpdate({username: restUser}, update, (err, restUserUp) => {
             if(err) return res.status(500).send({message: `Error al actualizar el usuario: ${err}`})
-            res.status(200).send({restUser: restUserUp})
+            res.status(200).send({message: 'Usuario actualizado'})
         })
     }else{
         res.status(400).send({message: 'Verifique los datos de usuario y contraseña'})
