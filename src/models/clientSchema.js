@@ -44,8 +44,7 @@ const clientSchema = new Schema({
     longitude: Number,
     token: {
         type: String,
-        //Later on
-        //required: true
+        required: true
     },
     last_login: Date,
     created_at: {
