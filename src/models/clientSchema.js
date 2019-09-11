@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 const clientSchema = new Schema({
     id_client:{
         type: Number,
-        required: true
+        required: true,
+        unique: true
     },
     username: {
-        type: Number,
-        index: true,
+        type: String,
         unique: true,
         required: true
     },
@@ -22,13 +22,14 @@ const clientSchema = new Schema({
     },
     user_type: {
         type: String, 
-        required: true,
+        default: 'Client',
         enum: ['Client', 'Deliveryman', 'RestaurantAdmin', 'RestaurantEmployee', 'ThirdParty']
     },
     email: {
         type: String,
         required: true,
         lowercase: true,
+        trim: true,
         match: /\S+@\S+\.\S+/
     },
     //Address
@@ -44,7 +45,9 @@ const clientSchema = new Schema({
     longitude: Number,
     token: {
         type: String,
-        required: true
+        unique: true,
+        required: true,
+        select: false
     },
     last_login: Date,
     created_at: {
