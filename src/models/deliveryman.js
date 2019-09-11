@@ -68,7 +68,7 @@ const DeliverymanSchema = new Schema({
             }
         }
     },
-    UserName: {
+    Username: {
         type: String,
         unique: true,
         required: true,
