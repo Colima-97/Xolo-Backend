@@ -99,7 +99,7 @@ const DeliverymanSchema = new Schema({
         default: Date.now 
     },
     LastLogin: Date, 
-    StatusTypes: { 
+    StatusType: { 
         type: String, 
         default: 1,
         validate(value){
