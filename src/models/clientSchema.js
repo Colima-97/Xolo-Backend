@@ -4,12 +4,12 @@ const validator = require('validator');
 const Enum = require('enum');
 
 const clientSchema = new Schema({
-    id_client:{
+    Id:{
         type: Number,
         required: true,
         unique: true
     },
-    username: {
+    Username: {
         type: String,
         unique: true,
         required: true,
@@ -21,7 +21,7 @@ const clientSchema = new Schema({
             }
         }
     },
-    name: {
+    Name: {
         type: String,
         required: true,
         validate(value){
@@ -30,7 +30,7 @@ const clientSchema = new Schema({
             }
         }
     },
-    last_name: {
+    LastName: {
         type: String,
         required: true,
         validate(value){
@@ -39,7 +39,7 @@ const clientSchema = new Schema({
             }
         }
     },
-    user_type: {
+    UserType: {
         type: String, 
         default: 1,
         validate(value){
@@ -51,7 +51,7 @@ const clientSchema = new Schema({
             }
         }
     },
-    email: {
+    Email: {
         type: String,
         required: true,
         lowercase: true,
@@ -65,8 +65,8 @@ const clientSchema = new Schema({
             }
         }
     },
-    street: String,
-    external_number: {
+    Street: String,
+    ExternalNumber: {
         type: String,
         validate(value){
             if(validator.isAlpha(value, 'es-ES')){
@@ -74,12 +74,12 @@ const clientSchema = new Schema({
             }
         }
     },
-    internal_number: {
+    InternalNumber: {
         type: String,
     },
-    neighborhood: String,
-    city: String,
-    zip_code: {
+    Neighborhood: String,
+    City: String,
+    ZipCode: {
         type: String,
         validate(value){
             if(!validator.isPostalCode(value, 'MX')){
@@ -87,17 +87,17 @@ const clientSchema = new Schema({
             }
         }
     },
-    references: String,
-    latitude: Number,
-    longitude: Number,
-    token: {
+    References: String,
+    Latitude: Number,
+    Longitude: Number,
+    Token: {
         type: String,
         unique: true,
         required: true,
         select: false
     },
-    last_login: Date,
-    created_at: {
+    LastLogin: Date,
+    CreatedAt: {
         type: Date,
         default: Date.now,
         immutable: true
