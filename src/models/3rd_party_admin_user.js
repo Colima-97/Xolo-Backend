@@ -90,7 +90,7 @@ const thirdPartyAdminUserSchema = new Schema({
             select: false
         }
     }],
-    UserTypes: {
+    UserType: {
         type: String,
         default: 5,
         validate(value){
