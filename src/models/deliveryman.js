@@ -32,7 +32,6 @@ const DeliverymanSchema = new Schema({
     UserType: { 
         type: String,
         default: 2,
-        lowercase: true,
         validate(value){
             var type = new Enum({1: 'client', 2: 'deliveryman', 3: 'restaurantadmin', 4: 'restaurantemployee', 5: 'thirdparty'})
             if(!type.getValue(value)){
@@ -44,8 +43,7 @@ const DeliverymanSchema = new Schema({
     },
     DeliverymanType: { 
         type: String, 
-        required: true, 
-        lowercase: true,
+        required: true,
         validate(value){
             var type = new Enum({1: 'fixed', 2:'nonfixed'})
             if(!type.getValue(value)){
@@ -68,7 +66,7 @@ const DeliverymanSchema = new Schema({
             }
         }
     },
-    UserName: {
+    Username: {
         type: String,
         unique: true,
         required: true,
@@ -96,15 +94,14 @@ const DeliverymanSchema = new Schema({
             }
         }
     },
-    SignUpDate: { 
+    CreateAt: { 
         type: Date, 
         default: Date.now 
     },
     LastLogin: Date, 
-    Status: { 
+    StatusTypes: { 
         type: String, 
-        default: 1, 
-        lowercase: true,
+        default: 1,
         validate(value){
             var type = new Enum({1: 'pending', 2: 'active', 3: 'inactive', 4: 'banned'})
             if(!type.getValue(value)){
@@ -114,10 +111,10 @@ const DeliverymanSchema = new Schema({
             }
         }
     },
-    Latitud: {
+    Latitude: {
         type: Number
     },
-    Longitud: {
+    Longitude: {
         type: Number
     }
 })
