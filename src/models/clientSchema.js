@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const validator = require('validator');
+const Enum = require('enum');
 
 const clientSchema = new Schema({
     id_client:{
@@ -10,37 +12,82 @@ const clientSchema = new Schema({
     username: {
         type: String,
         unique: true,
-        required: true
+        required: true,
+        validate(value){
+            if(validator.isEmpty(value)){
+                throw new Error('Por favor ingrese el número de teléfono')
+            }else if(!validator.isMobilePhone(value, 'es-MX')){
+                throw new Error('Número de teléfono incorrecto')
+            }
+        }
     },
     name: {
         type: String,
-        required: true
+        required: true,
+        validate(value){
+            if(validator.isEmpty(value)){
+                throw new Error('Por favor ingrese el nombre')
+            }
+        }
     },
     last_name: {
         type: String,
-        required: true
+        required: true,
+        validate(value){
+            if(validator.isEmpty(value)){
+                throw new Error('Por favor ingrese el apellido')
+            }
+        }
     },
     user_type: {
         type: String, 
-        default: 'Client',
-        enum: ['Client', 'Deliveryman', 'RestaurantAdmin', 'RestaurantEmployee', 'ThirdParty']
+        default: 1,
+        validate(value){
+            var type = new Enum({1: 'client', 2: 'deliveryman', 3: 'restaurantadmin', 4: 'restaurantemployee', 5: 'thirdparty'})
+            if(!type.getValue(value)){
+                throw new Error('Tipo de usuario inválido')
+            }else{
+                this.UserType = type.getValue(value)
+            }
+        }
     },
     email: {
         type: String,
         required: true,
         lowercase: true,
         trim: true,
-        match: /\S+@\S+\.\S+/
+        unique: true,
+        validate(value){
+            if(validator.isEmpty(value)){
+                throw new Error('Por favor ingrese el email')
+            }else if(!validator.isEmail(value)){
+                throw new Error('Email inválido')
+            }
+        }
     },
-    //Address
     street: String,
-    external_number: String,
-    internal_number: String,
+    external_number: {
+        type: String,
+        validate(value){
+            if(validator.isAlpha(value, 'es-ES')){
+                throw new Error('No puede ser sólo letras')
+            }
+        }
+    },
+    internal_number: {
+        type: String,
+    },
     neighborhood: String,
     city: String,
-    zip_code: Number,
+    zip_code: {
+        type: String,
+        validate(value){
+            if(!validator.isPostalCode(value, 'MX')){
+                throw new Error('El código postal es incorrecto')
+            }
+        }
+    },
     references: String,
-    //End
     latitude: Number,
     longitude: Number,
     token: {
@@ -58,11 +105,3 @@ const clientSchema = new Schema({
 });
 
 module.exports = mongoose.model('client_user', clientSchema);
-
-/*
-Validations
-Validación del correo.
-Validación de teléfono.
-Validación de dirección en caso de que no se den los permisos de geolocalización.
-Validaciones de objetos nulos y requeridos.
-*/
