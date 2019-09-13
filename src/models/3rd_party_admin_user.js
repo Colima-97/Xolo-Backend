@@ -81,7 +81,8 @@ const thirdPartyAdminUserSchema = new Schema({
     LastLogin: Date,
     CreatedAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        immutable: true
     },
     Tokens:[{
         token: {
