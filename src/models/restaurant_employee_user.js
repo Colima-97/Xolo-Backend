@@ -3,6 +3,39 @@ const Schema = mongoose.Schema
 const validator = require('validator')
 const Enum = require('enum')
 
+const Token = new Schema({
+    id: {
+        type: String,
+        required: true,
+        unique: true
+    }
+})
+
+const Day = new Schema({
+    dayOfTheWeek: {
+        type: String,
+        required: true,
+        validate(value){
+            var type = new Enum({1: 'Lunes', 2: 'Martes', 3: 'Miercoles', 4: 'Jueves', 5: 'Viernes', 6: 'Sabado', 7: 'Domingo'})
+            if(!type.getValue(value)){
+                throw new Error('Día inválido')
+            }else{
+                this.dayOfTheWeek = type.getValue(value)
+            }
+        }
+    },
+    DayOff: {
+        type: Boolean,
+        required: true
+    },
+    StartTime: {
+        type: String
+    },
+    EndTime: {
+        type: String
+    }
+})
+
 const DeliverymanSchema = new Schema({
     Id: { 
         type: Number,
@@ -54,19 +87,13 @@ const DeliverymanSchema = new Schema({
         type: Date, 
         default: Date.now
     },
-    //tokens: required - array(String)
+    Tokens: [Token],
     Latitude: {
         type: Number
     },
     Longitude: {
         type: Number
-    }
-    /*
-    Days:
-        daysOfTheWeek [ 'lunes' 'martes' ... 'domingo'  ],
-        StartTime
-        EndTime
-        DayOff - array
-    */
+    },
+    Days: [Day]
 })
 module.exports = mongoose.model('deliveryman', DeliverymanSchema)
