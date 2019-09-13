@@ -94,7 +94,7 @@ const DeliverymanSchema = new Schema({
             }
         }
     },
-    CreateAt: { 
+    CreatedAt: {
         type: Date, 
         default: Date.now,
         immutable: true 
