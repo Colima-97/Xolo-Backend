@@ -51,6 +51,18 @@ const clientSchema = new Schema({
             }
         }
     },
+    StatusType: { 
+        type: String, 
+        default: 2,
+        validate(value){
+            var type = new Enum({1: 'unknown', 2: 'active', 3: 'inactive', 4: 'banned'})
+            if(!type.getValue(value)){
+                throw new Error('El estado del cliente es inválido')
+            }else{
+                this.Status = type.getValue(value)
+            }
+        }
+    },
     Email: {
         type: String,
         required: true,
