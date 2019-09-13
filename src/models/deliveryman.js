@@ -96,7 +96,8 @@ const DeliverymanSchema = new Schema({
     },
     CreateAt: { 
         type: Date, 
-        default: Date.now 
+        default: Date.now,
+        immutable: true 
     },
     LastLogin: Date, 
     StatusType: { 
