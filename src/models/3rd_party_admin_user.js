@@ -62,7 +62,7 @@ const thirdPartyAdminUserSchema = new Schema({
             }else if(validator.equals(value.toLowerCase(), "password")){
                 throw new Error('Contraseña inválida')
             }else if(validator.isLength(value, 8, undefined)){
-                throw new Error('La contraseña debe contener 8 dígitos como minimo')
+                throw new Error('La contraseña debe contener 8 dígitos como mínimo')
             }
         }
     },
@@ -72,9 +72,9 @@ const thirdPartyAdminUserSchema = new Schema({
         unique: true,
         validate(value){
             if(validator.isEmpty(value)){
-                throw new Error('Por favor ingrese el numero de telefono')
+                throw new Error('Por favor ingrese el número de teléfono')
             }else if(!validator.isMobilePhone(value, 'es-MX')){
-                throw new Error('Número de telefono incorrecto')
+                throw new Error('Número de teléfono incorrecto')
             }
         }
     },
