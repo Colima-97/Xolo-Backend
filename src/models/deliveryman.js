@@ -74,7 +74,7 @@ const DeliverymanSchema = new Schema({
             if(validator.isEmpty(value)){
                 throw new Error('Por favor ingrese el número de teléfono')
             }else if(!validator.isMobilePhone(value, 'es-MX')){
-                throw new Error('Número de telefono incorrecto')
+                throw new Error('Número de teléfono incorrecto')
             }
         }
     },
