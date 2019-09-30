@@ -4,7 +4,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const bcrypt = require('bcrypt-nodejs')
 const validator = require('validator')
-const Enum = require('enum')
+const Property = require('../helpers/properties')
+const UserType = Property.UserType
 
 const thirdPartyAdminUserSchema = new Schema({
     Id: {
@@ -91,18 +92,7 @@ const thirdPartyAdminUserSchema = new Schema({
             select: false
         }
     }],
-    UserType: {
-        type: String,
-        default: 5,
-        validate(value){
-            var type = new Enum({1: 'client', 2: 'deliveryman', 3: 'restaurantadmin', 4: 'restaurantemployee', 5: 'thirdparty'})
-            if(!type.getValue(value)){
-                throw new Error('Tipo de usuario inválido')
-            }else{
-                this.UserType = type.getValue(value)
-            }
-        }
-    }
+    UserType
 })
 
 thirdPartyAdminUserSchema.pre('save', (next) => {

@@ -3,7 +3,10 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const validator = require('validator')
-const Enum = require('enum')
+const Property = require('../helpers/properties')
+const StatusType = Property.StatusType
+const UserType = Property.UserType
+const DeliverymanType = Property.DeliverymanType
 
 const DeliverymanSchema = new Schema({
     Id: { 
@@ -29,30 +32,8 @@ const DeliverymanSchema = new Schema({
             }
         }
     },
-    UserType: { 
-        type: String,
-        default: 2,
-        validate(value){
-            var type = new Enum({1: 'client', 2: 'deliveryman', 3: 'restaurantadmin', 4: 'restaurantemployee', 5: 'thirdparty'})
-            if(!type.getValue(value)){
-                throw new Error('Tipo de usuario inválido')
-            }else{
-                this.UserType = type.getValue(value)
-            }
-        }
-    },
-    DeliverymanType: { 
-        type: String, 
-        required: true,
-        validate(value){
-            var type = new Enum({1: 'fixed', 2:'nonfixed'})
-            if(!type.getValue(value)){
-                throw new Error('El tipo de repartidor es inválido')
-            }else{
-                this.DeliverymanType = type.getValue(value)
-            }
-        }
-    },
+    UserType,
+    DeliverymanType,
     Email: {
         type: String,
         required: true,
@@ -99,19 +80,8 @@ const DeliverymanSchema = new Schema({
         default: Date.now,
         immutable: true 
     },
-    LastLogin: Date, 
-    StatusType: { 
-        type: String, 
-        default: 1,
-        validate(value){
-            var type = new Enum({1: 'pending', 2: 'active', 3: 'inactive', 4: 'banned'})
-            if(!type.getValue(value)){
-                throw new Error('El estado del repartidor es inválido')
-            }else{
-                this.Status = type.getValue(value)
-            }
-        }
-    },
+    LastLogin: Date,
+    StatusType,
     Latitude: {
         type: Number
     },

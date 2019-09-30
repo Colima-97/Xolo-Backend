@@ -1,10 +1,12 @@
 'use strict'
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt-nodejs');
-const validator = require('validator');
-const Enum = require('enum');
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const bcrypt = require('bcrypt-nodejs')
+const validator = require('validator')
+const Property = require('../helpers/properties')
+const UserType = Property.UserType
+const StatusType = Property.StatusTypeClient
 
 const restAdminUserSchema = new Schema({
     Id: {
@@ -62,30 +64,8 @@ const restAdminUserSchema = new Schema({
             }
         }
     },
-    UserType: {
-        type: String,
-        default: 3,
-        validate(value){
-            var type = new Enum({1: 'client', 2: 'deliveryman', 3: 'restaurantadmin', 4: 'restaurantemployee', 5: 'thirdparty'})
-            if(!type.getValue(value)){
-                throw new Error('Tipo de usuario inválido')
-            }else{
-                this.UserType = type.getValue(value)
-            }
-        }
-    },
-    StatusType: { 
-        type: String, 
-        default: 2,
-        validate(value){
-            var type = new Enum({1: 'unknown', 2: 'active', 3: 'inactive', 4: 'banned'})
-            if(!type.getValue(value)){
-                throw new Error('El estado del Administrador es inválido')
-            }else{
-                this.Status = type.getValue(value)
-            }
-        }
-    },
+    UserType,
+    StatusType,
     LastLogin: Date,
     CreatedAt: {
         type: Date,
@@ -100,7 +80,7 @@ const restAdminUserSchema = new Schema({
         }
     }],
 
-});
+})
 
 restAdminUserSchema.pre('save', (next) =>{
     let rauSchema = this
@@ -115,6 +95,6 @@ restAdminUserSchema.pre('save', (next) =>{
             next()
         })
     })
-});
+})
 
-module.exports = mongoose.model('restaurant_admin_user', restAdminUserSchema);
+module.exports = mongoose.model('restaurant_admin_user', restAdminUserSchema)
