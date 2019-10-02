@@ -7,4 +7,4 @@ mongoose.connect(config.db, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useFindAndModify: false 
-}).then(db => console.log('Connected to Moongose')).catch(err => console.error(err))
+}).then(db => console.log('Connected to Mongoose')).catch(err => console.error(err))

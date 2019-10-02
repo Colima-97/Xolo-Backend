@@ -15,6 +15,15 @@ err_TypeDeliveryman = 'El tipo de repartidor es inválido'
 inactive = 'inactive'
 active = 'active'
 banned = 'banned'
+client = 'client'
+deliveryman = 'deliveryman'
+restaurantadmin = 'restaurantadmin'
+restaurantemployee = 'restaurantemployee',
+thirdparty = 'thirdparty'
+fixed = 'fixed'
+nonfixed = 'nonfixed'
+pending = 'pending'
+unknown = 'unknown'
 
 
 module.exports = {
@@ -32,5 +41,14 @@ module.exports = {
     err_TypeDeliveryman,
     inactive,
     active,
-    banned
+    banned,
+    client,
+    deliveryman,
+    restaurantadmin,
+    restaurantemployee,
+    thirdparty,
+    fixed,
+    nonfixed,
+    pending,
+    unknown
 }
