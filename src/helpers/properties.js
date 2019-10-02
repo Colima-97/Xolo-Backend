@@ -1,12 +1,12 @@
 'use strict'
 
-const Strings = require('./strings')
+const Enums = require('./enums')
 
 const StatusType = {
     type: String,
     required: true,
     validate(value){
-        var type = Strings.StatusType
+        var type = Enums.StatusType
         if(!type.getValue(value)){
             throw new Error('Tipo de usuario inválido')
         }
@@ -17,7 +17,7 @@ const StatusTypeClient = {
     type: String,
     required: true,
     validate(value){
-        var type = Strings.StatusTypeClient
+        var type = Enums.StatusTypeClient
         if(!type.getValue(value)){
             throw new Error('Tipo de usuario inválido')
         }
@@ -28,7 +28,7 @@ const UserType = {
     type: String,
     required: true,
     validate(value){
-        var type = Strings.UserType
+        var type = Enums.UserType
         if(!type.getValue(value)){
             throw new Error('Tipo de usuario inválido')
         }
@@ -39,7 +39,7 @@ const DeliverymanType = {
     type: String,
     required: true,
     validate(value){
-        var type = Strings.DeliverymanType
+        var type = Enums.DeliverymanType
         if(!type.getValue(value)){
             throw new Error('El tipo de repartidor es inválido')
         }
