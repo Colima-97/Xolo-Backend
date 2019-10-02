@@ -12,6 +12,9 @@ err_Password_length = 'La contraseña debe contener 8 dígitos como mínimo'
 err_Cellphone = 'Número de teléfono invalido'
 err_Cellphone_empty = 'Por favor ingrese el número de teléfono'
 err_TypeDeliveryman = 'El tipo de repartidor es inválido'
+inactive = 'inactive'
+active = 'active'
+banned = 'banned'
 
 
 module.exports = {
@@ -21,7 +24,13 @@ module.exports = {
     err_Name_empty,
     err_Code_empty,
     err_Username_empty,
-    err_Password,err_Password_empty,err_Password_length,
-    err_Cellphone,err_Cellphone_empty,
-    err_TypeDeliveryman
+    err_Password,
+    err_Password_empty,
+    err_Password_length,
+    err_Cellphone,
+    err_Cellphone_empty,
+    err_TypeDeliveryman,
+    inactive,
+    active,
+    banned
 }
